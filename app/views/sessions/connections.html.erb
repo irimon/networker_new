@@ -1,0 +1,24 @@
+<!DOCTYPE html>   
+
+<div class="profile">
+<h1>Connections</h1>
+
+  <table class="zebra-striped">
+  <thead>
+        <tr>
+            <th><%=link_to "FirstName", :sort => "first_name"%></th>
+			<th><%=link_to "Last Name", :sort => "last_name"%></th>
+			<th><%=link_to "Industry", :sort => "industry"%></th>
+        </tr>
+    </thead>
+	<tbody>
+	<%  for con in @Connections %>
+		<tr>
+			<td><%= con.first_name %></td>	      
+			<td><%= con.last_name %></td>
+			<td><%= con.industry %></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>
+</div>
