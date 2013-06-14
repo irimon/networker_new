@@ -1,28 +1,34 @@
 <!DOCTYPE html>   
 
-<% @con.all.each do |con| %>
-	<%= p "new connection:" %>
-	<%=  con %>
-<% end %>
 <div class=="center hero-unit">
 <h1>Feed</h2>
+	<h2> You might find the following updates interesting </h2>
 	<% @feed.all.each do |feed| %>
-	<%= p "this is new" %>
-	<%= feed.to_hash["update_content"]["person"]["first_name"] %>
-	<%= feed.to_hash["update_content"]["person"]["last_name"] %>
-	<%= feed.to_hash["update_content"]["person"] %>
-	<% if !feed.to_hash["update_content"]["person"]["headline"].nil? %>
-		<%= feed.to_hash["update_content"]["person"]["headline"] %>
-	<% end %>
+		
+		<% if !feed.to_hash["update_content"]["person"]["educations"].nil? %>
+			<b><%= feed.to_hash["update_content"]["person"]["first_name"] %>
+			<%= feed.to_hash["update_content"]["person"]["last_name"] %></b>
+			<%= p "has a new school: " %>
+			<%= feed.to_hash["update_content"]["person"]["educations"]["all"][0].to_hash["school_name"] %>
+		<% end %>
+			
+		<% if !feed.to_hash["update_content"]["person"]["skills"].nil? %>
+			<b><%= feed.to_hash["update_content"]["person"]["first_name"] %>
+			<%= feed.to_hash["update_content"]["person"]["last_name"] %></b>
+			<%= p "has the follwing new skills: " %>
+			<% feed.to_hash["update_content"]["person"]["skills"]["all"].each do |item| %>
+				<%= item.to_hash["skill"]["name"] %>
+				<%= p ", " %>
+			<% end %>
+		<% end %>
 	
-	<% if !feed.to_hash["update_content"]["person"]["skills"].nil? %>
-		<%= feed.to_hash["update_content"]["person"]["skills"]["all"][0].to_hash["skill"]["name"] %>
-	<% end %>
-	
-	<% if !feed.to_hash["update_content"]["person"]["positions"].nil? %>
-		<%= feed.to_hash["update_content"]["person"]["positions"]["all"][0].to_hash["title"] %>
-		<%= feed.to_hash["update_content"]["person"]["positions"]["all"][0].to_hash["company"]["name"] %>
-	<% end %>
+		<% if !feed.to_hash["update_content"]["person"]["positions"].nil? %>
+			<b><%= feed.to_hash["update_content"]["person"]["first_name"] %>
+			<%= feed.to_hash["update_content"]["person"]["last_name"] %></b>
+			<%= p "has the follwing new possition: " %>
+			<%= feed.to_hash["update_content"]["person"]["positions"]["all"][0].to_hash["title"] %>
+			<%= feed.to_hash["update_content"]["person"]["positions"]["all"][0].to_hash["company"]["name"] %>
+		<% end %>
 
 	
 	<% end %>

@@ -9,6 +9,7 @@
             <th><%=link_to "FirstName", :sort => "first_name"%></th>
 			<th><%=link_to "Last Name", :sort => "last_name"%></th>
 			<th><%=link_to "Industry", :sort => "industry"%></th>
+			<th><%=link_to "Country", :sort => "country"%></th>
         </tr>
     </thead>
 	<tbody>
@@ -17,6 +18,7 @@
 			<td><%= con.first_name %></td>	      
 			<td><%= con.last_name %></td>
 			<td><%= con.industry %></td>
+			<td><%= con.country %></td>
 		</tr>
 	<% end %>
 	</tbody>

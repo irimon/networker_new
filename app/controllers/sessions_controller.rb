@@ -65,13 +65,20 @@ class SessionsController < ApplicationController
 				new_profile.headline = @ref_profile.headline
 				new_profile.industry = @ref_profile.industry
 				current_user.BasicProfile = new_profile
-				
-				@ref_connections.all.each_with_index do |con,ind|
-					@connection = Connection.new
-					@connection.first_name = con.first_name
-					@connection.last_name = con.last_name
-					@connection.industry = con.industry
-					current_user.connections.create(:first_name => con.first_name, :last_name => con.last_name, :industry => con.industry)
+			end	
+			
+			@ref_connections.all.each_with_index do |con,ind|
+				@connection = Connection.new
+				@connection.first_name = con.first_name
+				@connection.last_name = con.last_name
+				@connection.industry = con.industry
+				@connection.country = con.location.to_s.split("name")[1].to_s.split("\"")[1]
+				@connection.uniquness_number = con.to_hash["id"]
+				@connection.connection_id = con.to_hash["id"]
+				#		<% Hash[con.to_hash.map{|a| [a.first.to_sym, a.last]}][:location] %>
+				if (current_user.connections.find_by_uniquness_number(@connection.uniquness_number).nil?)
+					current_user.connections.create(:first_name => @connection.first_name, :last_name => @connection.last_name, 
+									                :industry => @connection.industry, :country => @connection.country, :connection_id => 3, :uniquness_number => @connection.uniquness_number)#@connection.connection_id)
 				end
 			end
 		
@@ -94,7 +101,7 @@ class SessionsController < ApplicationController
 		@Connections = current_user.connections
 		render 'connections'
 	end
-	
+		
 	def get_feed
 		client = LinkedIn::Client.new("w75zrekv8gjb", "DJSzP42FD0XVLro0")
 
@@ -107,7 +114,7 @@ class SessionsController < ApplicationController
 			client.authorize_from_access(session[:atoken], session[:asecret])
 		end
 		@con = client.connections
-		@feed = client.network_updates(:type => 'PRFU')
+		@feed = client.network_updates(:type => 'PRFU', :count => '100')
 	  # @feed.all.each do |feed| 
 	
 		# @first_name = feed.to_hash["update_content"]["person"]["first_name"]

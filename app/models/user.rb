@@ -16,8 +16,8 @@ class User < ActiveRecord::Base
   
   has_one :BasicProfile, :dependent => :destroy
   
-  has_many :connections, dependent: :destroy
-
+  has_many :connections, foreign_key: "connection_id", dependent: :destroy
+  #has_many :connections, dependent: :destroy
   #before_save { |user| user.email = email.downcase }
    before_save { email.downcase! }
    before_save :create_remember_token
