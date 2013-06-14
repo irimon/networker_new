@@ -56,7 +56,6 @@ class SessionsController < ApplicationController
 		@ref_profile = client.profile
 		@ref_connections = client.connections
 		@my_connections = Connection.new
-		
 		if signed_in?
 		
 			if current_user.BasicProfile.nil?
@@ -95,5 +94,46 @@ class SessionsController < ApplicationController
 		@Connections = current_user.connections
 		render 'connections'
 	end
+	
+	def get_feed
+		client = LinkedIn::Client.new("w75zrekv8gjb", "DJSzP42FD0XVLro0")
+
+		if session[:atoken].nil?
+			pin = params[:oauth_verifier]
+			atoken, asecret = client.authorize_from_request(session[:rtoken], session[:rsecret], pin)
+			session[:atoken] = atoken
+			session[:asecret] = asecret
+		else
+			client.authorize_from_access(session[:atoken], session[:asecret])
+		end
+		@con = client.connections
+		@feed = client.network_updates(:type => 'PRFU')
+	  # @feed.all.each do |feed| 
+	
+		# @first_name = feed.to_hash["update_content"]["person"]["first_name"]
+		# @last_name = feed.to_hash["update_content"]["person"]["last_name"]
+		# <%= feed.to_hash["update_content"]["person"] %>
+	# <% if !feed.to_hash["update_content"]["person"]["headline"].nil? %>
+		# <%= feed.to_hash["update_content"]["person"]["headline"] %>
+	# <% end %>
+	
+	# <% if !feed.to_hash["update_content"]["person"]["skills"].nil? %>
+		# <%= feed.to_hash["update_content"]["person"]["skills"]["all"][0].to_hash["skill"]["name"] %>
+	# <% end %>
+	
+	# <% if !feed.to_hash["update_content"]["person"]["positions"].nil? %>
+		# <%= feed.to_hash["update_content"]["person"]["positions"]["all"][0].to_hash["title"] %>
+		# <%= feed.to_hash["update_content"]["person"]["positions"]["all"][0].to_hash["company"]["name"] %>
+	# <% end %>
+
+	
+	# <% end %>
+			#@feed.all.each |fd|
+		  #  Company.create(company.to_hash)
+
+		#@fields = client.options
+		render 'feed'
+	end
+
    
 end

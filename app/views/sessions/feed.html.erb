@@ -1,0 +1,30 @@
+<!DOCTYPE html>   
+
+<% @con.all.each do |con| %>
+	<%= p "new connection:" %>
+	<%=  con %>
+<% end %>
+<div class=="center hero-unit">
+<h1>Feed</h2>
+	<% @feed.all.each do |feed| %>
+	<%= p "this is new" %>
+	<%= feed.to_hash["update_content"]["person"]["first_name"] %>
+	<%= feed.to_hash["update_content"]["person"]["last_name"] %>
+	<%= feed.to_hash["update_content"]["person"] %>
+	<% if !feed.to_hash["update_content"]["person"]["headline"].nil? %>
+		<%= feed.to_hash["update_content"]["person"]["headline"] %>
+	<% end %>
+	
+	<% if !feed.to_hash["update_content"]["person"]["skills"].nil? %>
+		<%= feed.to_hash["update_content"]["person"]["skills"]["all"][0].to_hash["skill"]["name"] %>
+	<% end %>
+	
+	<% if !feed.to_hash["update_content"]["person"]["positions"].nil? %>
+		<%= feed.to_hash["update_content"]["person"]["positions"]["all"][0].to_hash["title"] %>
+		<%= feed.to_hash["update_content"]["person"]["positions"]["all"][0].to_hash["company"]["name"] %>
+	<% end %>
+
+	
+	<% end %>
+	
+</div>

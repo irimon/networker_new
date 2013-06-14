@@ -17,7 +17,7 @@ NetworkerNew::Application.routes.draw do
   match '/connections',  to: 'sessions#get_connections'
 
   match '/linkedin',  to: 'sessions#linkedin'
-  
+  match '/feed', to: 'sessions#get_feed'
   get "sessions/callback"
   get "sessions/show"
 
