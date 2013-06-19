@@ -1,0 +1,23 @@
+<% provide(:title, "Skill search") %>
+<h1>Skills</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+ <!--
+    <%= form_for(:session, url: 'skills_res') do |f| %>
+
+      <%= f.label :skill %>
+      <%= f.text_field :skill %>
+
+      <%= f.submit "Skill search", class: "btn btn-large btn-primary" %>
+    <% end %>
+	-->
+	
+	<%= form_tag('/skills_res') do  %>
+		<input type="skill" name="skill">
+
+		<div><%= submit_tag 'Submit', class: "btn btn-large btn-primary" %></div>
+	<% end %>
+	
+  </div>
+</div>

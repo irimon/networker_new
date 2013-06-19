@@ -2,6 +2,19 @@
 
 <div class=="center hero-unit">
 <h1>Feed</h2>
+<!--	<% @share.all.each do |share| %>
+		<% if !share.to_hash["likes"].nil? %>
+			<%= p "like" %>
+			<%= share.to_hash["likes"] %>
+		<%end %>
+		<% if !share.to_hash["update_comments"].nil? %>
+			<%= p "comments" %>
+			<%= share.to_hash %>
+		<%end %>
+		update_content
+		<%= p "this is new" %>
+	<% end %> -->
+
 	<h2> You might find the following updates interesting </h2>
 	<% @feed.all.each do |feed| %>
 		
@@ -20,7 +33,7 @@
 				<%= item.to_hash["skill"]["name"] %>
 				<%= p ", " %>
 			<% end %>
-		<% end %>
+		<% end %> 
 	
 		<% if !feed.to_hash["update_content"]["person"]["positions"].nil? %>
 			<b><%= feed.to_hash["update_content"]["person"]["first_name"] %>
@@ -28,9 +41,11 @@
 			<%= p "has the follwing new possition: " %>
 			<%= feed.to_hash["update_content"]["person"]["positions"]["all"][0].to_hash["title"] %>
 			<%= feed.to_hash["update_content"]["person"]["positions"]["all"][0].to_hash["company"]["name"] %>
+			
 		<% end %>
-
+	<% end %> 
 	
-	<% end %>
-	
+	<%= p "conn is " %>
+	<%= @conn.first_name %>
+	<%= @conn.update_events %> 
 </div>

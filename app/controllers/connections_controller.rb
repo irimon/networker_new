@@ -8,6 +8,14 @@ class ConnectionsController < ApplicationController
 			@feed_items = []
 			render 'static_pages/home'
 		end
-  end
+	end
+  
+	def add_update_event(new_pos, new_comp)
+		@update = UpdateEvent.new
+		@cont = new_pos + new_comp
+		@time = Date.today
+		@update.content = @cont
+		@update.stamp = @time
+	end
 
 end

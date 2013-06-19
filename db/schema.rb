@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130614082655) do
+ActiveRecord::Schema.define(:version => 20130617161543) do
 
   create_table "basic_profiles", :force => true do |t|
     t.string   "first_name"
@@ -37,6 +37,20 @@ ActiveRecord::Schema.define(:version => 20130614082655) do
     t.integer  "user_id"
     t.integer  "connection_id"
     t.string   "uniquness_number"
+  end
+
+  create_table "skills", :force => true do |t|
+    t.string   "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "update_events", :force => true do |t|
+    t.string   "content"
+    t.time     "stamp"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "connection_id"
   end
 
   create_table "users", :force => true do |t|

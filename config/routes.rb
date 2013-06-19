@@ -1,4 +1,6 @@
 NetworkerNew::Application.routes.draw do
+  get "update_events/new"
+
   resources :users do
 	resources :basic_profiles
   end 
@@ -18,6 +20,9 @@ NetworkerNew::Application.routes.draw do
 
   match '/linkedin',  to: 'sessions#linkedin'
   match '/feed', to: 'sessions#get_feed'
+  match '/skills', to: 'sessions#get_skill'
+  match '/skills_res', to: 'sessions#skills_search'
+  #get "sessions/skills_result"
   get "sessions/callback"
   get "sessions/show"
 
