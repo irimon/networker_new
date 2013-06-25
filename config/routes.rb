@@ -22,6 +22,9 @@ NetworkerNew::Application.routes.draw do
   match '/feed', to: 'sessions#get_feed'
   match '/skills', to: 'sessions#get_skill'
   match '/skills_res', to: 'sessions#skills_search'
+  match '/due_date_emails', to: 'sessions#get_due_date'
+  match '/due_connections_result', to: 'sessions#connections_due_for_update'
+  match '/congrats_mail', to: 'sessions#send_congrats_mail'
   #get "sessions/skills_result"
   get "sessions/callback"
   get "sessions/show"

@@ -6,6 +6,7 @@ class SessionsController < ApplicationController
 					:access_token_path => '/uas/oauth/accessToken'}
 
 	def new
+		#redirect_to linkedin
 	end
 
 	def create
@@ -75,10 +76,14 @@ class SessionsController < ApplicationController
 				@connection.country = con.location.to_s.split("name")[1].to_s.split("\"")[1]
 				@connection.uniquness_number = con.to_hash["id"]
 				@connection.connection_id = con.to_hash["id"]
+				@connection.picture_url = con.to_hash["picture_url"]
+				
 				#		<% Hash[con.to_hash.map{|a| [a.first.to_sym, a.last]}][:location] %>
 				if (current_user.connections.find_by_uniquness_number(@connection.uniquness_number).nil?)
 					current_user.connections.create(:first_name => @connection.first_name, :last_name => @connection.last_name, 
-									                :industry => @connection.industry, :country => @connection.country, :connection_id => 3, :uniquness_number => @connection.uniquness_number)#@connection.connection_id)
+									                :industry => @connection.industry, :country => @connection.country, 
+													:connection_id => @connection.connection_id, :uniquness_number => @connection.uniquness_number,
+													:picture_url => @connection.picture_url)#@connection.connection_id)
 				end
 			end
 		
@@ -157,6 +162,12 @@ class SessionsController < ApplicationController
 		@con = client.connections
 		@feed = client.network_updates(:type => 'PRFU', :count => '100')
 		@conn = current_user.connections.at(6)
+		
+		@con.all.each do |con| 
+			@my_con = con
+			@my_pic = con.picture_url
+			@my_pic2 = con.to_hash["picture_url"]
+		end
 		@feed.all.each do |feed| 
 			if !feed.to_hash["update_content"]["person"]["positions"].nil? 
 				f_name = feed.to_hash["update_content"]["person"]["first_name"] 
@@ -195,5 +206,29 @@ class SessionsController < ApplicationController
 		end
 	end
 
+	
+	def send_congrats_mail
+		@con_id = params[:id] # this is not working - can;t mamange to pass params via the link_to call
+		render 'send_mail'
+		#con = current_user.connections.find_by_connection_id(con_id)
+		#con.set_last_communication_date(Date)
+	end
+	
+	def connections_due_for_update
+		@con_list = Array.new
+		time_ago = params[:time_ago]
+		current_user.connections.each do |con|
+			if con.should_send_update(time_ago)
+				@con_list.push(con.first_name + " " + con.last_name)
+			end
+		end
+		
+		render 'due_connections_result'
+	end
+	
+	def get_due_date
+		render 'due_emails'
+	end
+	
    
 end

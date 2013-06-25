@@ -6,26 +6,34 @@
   <table class="zebra-striped">
   <thead>
         <tr>
+			<th></th>
             <th><%=link_to "FirstName", :sort => "first_name"%></th>
 			<th><%=link_to "Last Name", :sort => "last_name"%></th>
-			<th><%=link_to "Industry", :sort => "industry"%></th>
-			<th><%=link_to "Country", :sort => "country"%></th>
+			<!-- <th><%=link_to "Industry", :sort => "industry"%></th>
+			<th><%=link_to "Country", :sort => "country"%></th> -->
 			<th>Last update</th>
         </tr>
     </thead>
 	<tbody>
 	<%  for con in @Connections %>
 		<tr>
+			<td><%  if !con.picture_url.nil? %>
+				<%= image_tag con.picture_url %>
+				<% else %>
+				<%= image_tag("http://intermountainhealthcarecareers.com/wp-content/uploads/2011/07/LinkedIn-Logo-big.jpg", :size => "100x100") %>
+				<% end %>
+				</td>	 
 			<td><%= con.first_name %></td>	      
 			<td><%= con.last_name %></td>
-			<td><%= con.industry %></td>
-			<td><%= con.country %></td>
+			<!--  <td><%= con.industry %></td>
+			<td><%= con.country %></td> -->
 			<td><% if !con.update_events.last.nil? %>
 				<%= p "updated to " %>
 				<%= con.update_events.last.content %>
 				<%= p " on " %>
 				<%= con.update_events.last.created_at.to_date %>
 				<% end %></td>
+			<td><%=link_to "Say congrats", congrats_mail_path, :id => "blabla"  , class: "btn btn-small btn-primary" %></td>
 		</tr>
 	<% end %>
 	</tbody>

@@ -1,0 +1,15 @@
+<% provide(:title, "due emails") %>
+<h3>Number of days from last update</h3>
+
+<div class="row">
+  <div class="span6 offset3">
+	
+	<%= form_tag('/due_connections_result') do  %>
+		<
+		<input type="time_ago" name="time_ago">
+
+		<div><%= submit_tag 'Submit', class: "btn btn-large btn-primary" %></div>
+	<% end %>
+	
+  </div>
+</div>

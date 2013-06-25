@@ -1,5 +1,5 @@
   <div class="center hero-unit">
-    <%= @user.name %> <%= @user.email %> <%= @user.BasicProfile %>
+    <%= @user.name %> 
 	<%= link_to "Profile", profile_path, 
                                 class: "btn btn-large btn-primary" %> 
     <%= link_to "Connections", connections_path, 
@@ -10,5 +10,6 @@
                                 class: "btn btn-large btn-primary" %>
 	<%= link_to "Look for skills", skills_path, 
                                 class: "btn btn-large btn-primary" %>
-     
+    <%= link_to "Due emails",  due_date_emails_path, 
+								class: "btn btn-large btn-primary" %>
   </div>  

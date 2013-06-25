@@ -16,6 +16,7 @@
 	<% end %> -->
 
 	<h2> You might find the following updates interesting </h2>
+	<%= @my_con %><%= @my_pic %> <%= @my_pic2%>
 	<% @feed.all.each do |feed| %>
 		
 		<% if !feed.to_hash["update_content"]["person"]["educations"].nil? %>
